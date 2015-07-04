@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+    
+    <style>
+      circle.dimple-series-1 {
+        fill: red;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      h3 {
+        text-align: center;
+      }
+
+      p  {
+      border:1px solid black;      
+      }
+    </style>
+
+    <script type="text/javascript">
+      function draw(data) {
+      
+/*
+  D3.js setup code
+  Define box size, then define elements: title, subtitle, graph, legend
+*/
+
+          "use strict";
+          var margin = 75,
+              width = 1400 - margin,
+              height = 600 - margin;
+
+          d3.select("body")
+            .append("h2")
+            .text("Average Interest Rate vs Category: Do You See Any Relationship?")
+              // change title based on feedback
+
+          d3.select("body")
+            .append("h3")
+            .text("Loan data for 2014 from Prosper Funding LLC")
+
+          var svg = d3.select("body")
+            .append("svg")
+              .attr("width", width + margin)
+              .attr("height", height + margin)
+            .append('g')
+                .attr('class','chart');
+
+          // Display legend at the bottom of the chart
+          d3.select("body")
+            .append("p")
+            .text("Categories:     0 - Not Available;   1 - Debt Consolidation;   " +                "2 - Home Improvement;   3 - Business;   " +                "6 - Auto;   7 - Other;   " +
+                "8 - Baby&Adoption;   9 - Boat;   " +                "11 - Engagement Ring;   12 - Green Loans;   " +                "13 - Household Expenses;   14 - Large Purchases;   " +                "15 - Medical/Dental;   16 - Motorcycle;   " +                "17 - RV;   18 - Taxes;   " +                "19 - Vacation;   20 - Wedding Loans")
+
+/*
+  Dimple.js Chart construction code
+*/
+
+          var myChart = new dimple.chart(svg, data);
+          var x = myChart.addCategoryAxis("x", "Category"); 
+          x.addOrderRule("Category");  // sort by category index value
+          var y = myChart.addMeasureAxis("y", "APR");
+          var c = myChart.addSeries(null, dimple.plot.bar);
+            // change chart type based on feedback
+          c.aggregate = dimple.aggregateMethod.avg
+          myChart.draw();
+          y.titleShape.text("Interest Rate (APR)"); // change label based on feedback
+          y.fontSize("20px"); // not working
+          c.shapes.on("mouseover", function (e) {
+            dimple._showPointTooltip(e, this, myChart, c);
+            });
+        };
+
+    </script>
+  </head>
+<body>
+  <script type="text/javascript">
+
+/*
+  Use D3 (not dimple.js) to load the TSV file
+  and pass the contents of it to the draw function
+*/
+
+  d3.tsv("prosperLoanData2014extract.txt", draw);
+  </script>
+</body>
+</html>

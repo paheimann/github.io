@@ -1,6 +1,8 @@
 SUMMARY:
 
-I looked at loans in the Prosper data, only from 2014, to see if there was any apparent relationship between the interest rate (APR) and the purpose of the loan (Listing Category).  I produced two charts: (1) a circle chart showing the average APR for all loans in each category, to show the overall view, and (2) a scatterplot showing each loan, so that the viewer could get a feel for the variation of interest rates within each category.
+I looked at loans in the Prosper data, only from 2014, to see if there was any apparent relationship between the interest rate (APR) and the purpose of the loan (Listing Category).  I produced two charts: (1) a circle chart showing the average APR for all loans in each category, to show the overall view, and (2) a scatterplot showing each loan, so that the viewer could get a feel for the variation of interest rates within each category.  I do not see any clear relationship between loan purpose and APR, and I find that the range of APRs within each category is larger than the differences in average APR among the various categories.
+
+I made changes to these visualizations, based upon the feedback that I received.  I was  able to achieve some of these using dimple.js, and I was able to achieve the remainder using other data visualization tools (Excel, Minitab).
 
 
 DESIGN:
@@ -15,14 +17,14 @@ I was not able to eliminate aggregation.  The web site https://github.com/PMSI-A
 
 Another area for further investigation is the efficiency of this code.  The Average chart was displayed in a few seconds, but the Scatterplot took about 34 seconds to display its ~10,700 values.  It would be interesting to see how this process could be speeded up.
 
-> Changes in Revised Design:
+> Changes in Revised Design (achieved using dimple.js):
 
 - changed y-axis label on both charts to be more descriptive, less jargon
 - changed title on both charts to state a conclusion, or to otherwise guide the viewer
 - changed Average chart from scatter (dot) plot to bar chart
 - changed points on Scatterplot to be all the same color (I needed to adjust the opacity as well)
 
-> Attempted Changes in Revised Design that were not successful in the time frame for this project:
+> Changes in Revised Design (not successful using dimple.js in the time frame for this project, but successful using other tools):
 
 - font size of axis labels
 - on x-axis, show actual category names instead of code number

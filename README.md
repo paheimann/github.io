@@ -17,6 +17,7 @@ I was not able to eliminate aggregation.  The web site https://github.com/PMSI-A
 
 Another area for further investigation is the efficiency of this code.  The Average chart was displayed in a few seconds, but the Scatterplot took about 34 seconds to display its ~10,700 values.  It would be interesting to see how this process could be speeded up.
 
+
 > Changes in Revised Design (achieved using dimple.js):
 
 - changed y-axis label on both charts to be more descriptive, less jargon
@@ -30,6 +31,20 @@ Another area for further investigation is the efficiency of this code.  The Aver
 - on x-axis, show actual category names instead of code number
 - also show category name on mouseover
 - ordering of categories on x-axis, in ascending order of APR, on both charts
+
+
+> Further revisions, based on feedback from Udacity project evaluator:
+
+The evaluator suggested showing the year-over-year trend in the distribution of interest rates, not just for a single year.  Although a bubble chart was suggested, I chose a scatterplot instead, because the planar variable of position is preferable to the retinal variables of size or area.  This graph still shows that there is not much variation in average interest rate among the categories, but it now shows this for several different years.  It also shows that there is a year-over-year change in overall rate.
+
+The evaluator suggested that I get rid of the scatterplot, because it really did not effectively convey the distribution of interest rates.  However, the scatterplot did convey a sense of the number of loans in each category, so I changed the chart to concentrate on that aspect, now looking year-over-year.  I wanted to create a side-by-side bar chart, but the unstacked bar chart in dimple looked very similar to a scatterplot, so I stayed with a scatterplot.  It shows that Debt Consolidation dominates all other categories, with especially high loan volume in 2013.  It also shows that new categories showed up in 2011.
+
+Other design features added in this iteration:
+> Added a legend within the chart, although I still needed to retain the category-number-to-category-description key as a separate text element.
+> Changed the colors for the various categories in order to highlight the new categories introduced in 2011.  Used translucency in order to view overlapping data points.
+> Explicitly suggested to the viewer that they can use a mouseover to get specific values, if desired.
+
+One drawback of introducing the multiple-year view: the charts now all take a very long time to load.  I have not been able to figure out how to make the dimple code more efficient.  Please be patient!
 
 
 FEEDBACK RECEIVED:

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+    
+    <style>
+      circle.dimple-series-1 {
+        fill: red;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      h3 {
+        text-align: center;
+      }
+
+      p  {
+      border:1px solid black;      
+      }
+    </style>
+
+    <script type="text/javascript">
+      function draw(data) {
+      
+/*
+  D3.js setup code
+  Define box size, then define elements: title, subtitle, graph, legend
+*/
+
+          "use strict";
+          var margin = 75,
+              width = 1300 - margin,
+              height = 500 - margin;
+
+          d3.select("body")
+            .append("h2")
+            .text("Average Interest Rate of Loans from Prosper Funding LLC vs Category")
+
+          d3.select("body")
+            .append("h3")
+            .text("Not much variation among the categories, " +
+             "but there is a year-over-year change in overall rate.  " +
+             "New categories showed up in 2011")
+
+          d3.select("body")
+            .append("h3")
+            .text("Use mouseover to read exact values")
+
+          var svg = d3.select("body")
+            .append("svg")
+              .attr("width", width + margin)
+              .attr("height", height + margin)
+            .append('g')
+                .attr('class','chart');
+
+          // Display disclaimer for 2011
+          d3.select("body")
+            .append("h4")
+            .text("Note: large variation among categories in 2011 is due to small sample size for many categories in that year")
+
+
+          // Display legend at the bottom of the chart
+          d3.select("body")
+            .append("p")
+            .text("Categories:     0 - Not Available;   1 - Debt Consolidation;   " +                "2 - Home Improvement;   3 - Business;   " +
+                "4 - Personal Loan;   5 - Student Use;   " +                "6 - Auto;   7 - Other;   " +
+                "8 - Baby&Adoption;   9 - Boat;   " +
+                "10 - Cosmetic Procedure;   " +                "11 - Engagement Ring;   12 - Green Loans;   " +                "13 - Household Expenses;   14 - Large Purchases;   " +                "15 - Medical/Dental;   16 - Motorcycle;   " +                "17 - RV;   18 - Taxes;   " +                "19 - Vacation;   20 - Wedding Loans")
+
+/*
+  Dimple.js Chart construction code
+*/
+
+          var myChart = new dimple.chart(svg, data);
+
+          var x = myChart.addTimeAxis("x", "Year");
+          x.tickFormat = "%Y";
+          x.title = "Year";
+
+          var y = myChart.addMeasureAxis("y", "APR");
+          y.title = "Interest Rate (APR)";
+
+          var c = myChart.addSeries("Category", dimple.plot.scatter);
+          c.aggregate = dimple.aggregateMethod.avg;
+          c.addOrderRule("Category");
+
+          myChart.assignColor("1","black","black",1);
+          myChart.assignColor("2","navy","black",.5);
+          myChart.assignColor("3","darkblue","black",.5);
+          myChart.assignColor("4","mediumblue","black",.5);
+          myChart.assignColor("5","blue","black",.5);
+          myChart.assignColor("6","teal","black",.5);
+          myChart.assignColor("7","deepskyblue","black",.5);
+          myChart.assignColor("8","maroon","black",.5);
+          myChart.assignColor("9","sienna","black",.5);
+          myChart.assignColor("10","brown","black",.5);
+          myChart.assignColor("11","firebrick","black",.5);
+          myChart.assignColor("12","mediumvioletred","black",.5);
+          myChart.assignColor("13","orchid","black",.5);
+          myChart.assignColor("14","palevioletred","black",.5);
+          myChart.assignColor("15","crimson","black",.5);
+          myChart.assignColor("16","violet","black",.5);
+          myChart.assignColor("17","lightcoral","black",.5);
+          myChart.assignColor("18","sandybrown","black",.5);
+          myChart.assignColor("19","salmon","black",.5);
+          myChart.assignColor("20","deeppink","black",.5);
+
+          var legend = myChart.addLegend(width*0.75,60,width*0.25,60,"left");
+          myChart.draw();
+
+          c.shapes.on("mouseover", function (e) {
+            dimple._showPointTooltip(e, this, myChart, c);
+            });
+        };
+
+    </script>
+  </head>
+<body>
+  <script type="text/javascript">
+
+/*
+  Use D3 (not dimple.js) to load the TSV file
+  and pass the contents of it to the draw function
+*/
+
+  d3.tsv("prosperLoanDataExtract.txt", draw);
+  </script>
+</body>
+</html>

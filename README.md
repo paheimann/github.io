@@ -47,6 +47,15 @@ Other design features added in this iteration:
 One drawback of introducing the multiple-year view: the charts now all take a very long time to load.  I have not been able to figure out how to make the dimple code more efficient.  Please be patient!
 
 
+> Revisions based on second project evaluation:
+
+The evaluator suggested that I combine all categories except for Debt Consolidation into an "Other" group, in order to simplify the graph, and the story.  They also suggested that I pre-aggregate my data, using an external program such as python or R, in order for the dimple graphs to load more quickly.
+
+These changes make for a much clearer story.  The new chart of loan counts shows that the number of Debt Consolidation loans roughly equals the sum of all other categories combined, except for 2013, when Debt Consolidation was far higher, and 2014 when it was slightly higher.  The new chart of average interest rate shows not much difference between Debt Consolidation and other categories, but there is a year-over-year change in overall rate.  And a combined graph of loan count and average interest rate shows no apparent relationship between loan quantity and average APR year over year.
+
+I would have liked to show just the third, combined graph, but I was unable to figure out how to change the color only one series of lines, or how to make one of the series into dashed lines.  I would also have liked to figure out how to do the pre-processing with python, which would be a correct tool to use for a task that is done repeatedly, but for this one-time project it was much more efficient to do that pre-processing using Excel.
+
+
 FEEDBACK RECEIVED:
 
 > From Viewer #1:
